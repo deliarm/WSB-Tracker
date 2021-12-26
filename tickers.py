@@ -251,7 +251,6 @@ ticker_set = {
     "AHPI",
     "AHRNU",
     "AHT",
-    "AI",
     "AIC",
     "AIF",
     "AIG",
