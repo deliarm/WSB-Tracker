@@ -2721,7 +2721,6 @@ ticker_set = {
     "FOLD",
     "FONR",
     "FORA",
-    "FORD",
     "FORG",
     "FORM",
     "FORR",

@@ -124,7 +124,6 @@ full_companies = {
     ("AER", "AerCap"),
     ("AERC", "AeroClean"),
     ("AERI", "Aerie"),
-    ("AES", "The"),
     ("AESE", "Allied"),
     ("AEVA", "Aeva"),
     ("AEY", "ADDvantage"),
@@ -551,7 +550,6 @@ full_companies = {
     ("BBSI", "Barrett"),
     ("BBW", "Build"),
     ("BBWI", "Bath"),
-    ("BBY", "Best"),
     ("BC", "Brunswick"),
     ("BCAB", "BioAtla"),
     ("BCAC", "Brookline"),
@@ -843,7 +841,7 @@ full_companies = {
     ("CCB", "Coastal"),
     ("CCCS", "CCC"),
     ("CCD", "Calamos"),
-    ("CCEP", "Coca-Cola"),
+    ("CCEP", "Co,:-Cola"),
     ("CCF", "Chase"),
     ("CCI", "Crown"),
     ("CCJ", "Cameco"),
@@ -975,7 +973,7 @@ full_companies = {
     ("CLBT", "Cellebrite"),
     ("CLDT", "Chatham"),
     ("CLDX", "Celldex"),
-    ("CLF",	"Cleveland-Cliffs"),
+    ("CLF",	"Clevela,:-Cliffs"),
     ("CLFD", "Clearfield"),
     ("CLGN", "CollPlant"),
     ("CLH", "Clean"),
@@ -4175,7 +4173,7 @@ full_companies = {
     ("SYTA", "Siyata"),
     ("SYY", "Sysco"),
     ("SZZL", "Sizzle"),
-    ("T", "AT&T"),
+    ("T", ",:&T"),
     ("TA", "TravelCenters"),
     ("TAC", "TransAlta"),
     ("TACA", "Trepont"),
@@ -4846,5 +4844,8 @@ full_companies = {
     ("ZY", "Zymergen"),
     ("ZYME", "Zymeworks"),
     ("ZYNE", "Zynerba"),
-    ("ZYXI", "Zynex")
+    ("ZYXI", "Zyne,")
 }
+
+
+full_name_dictionary = dict((y, x) for x, y in full_companies)

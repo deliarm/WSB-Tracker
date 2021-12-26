@@ -1,21 +1,18 @@
 import datetime
-import re
 import warnings
-import time
 import matplotlib as plt
 import yfinance as yf
 from psaw import PushshiftAPI
-import psycopg2
-import psycopg2.extras
 from tickers import ticker_set
+from full_company_name import full_name_dictionary
 warnings.filterwarnings("ignore")
 
 
 year = 2021
-month = 6
-day = 6
+month = 8
+day = 8
 iterations = 10000  # 10k seems to be a good benchmark
-top = 100
+top = 50
 stock_dictionary = {}
 
 
@@ -55,7 +52,7 @@ submissions = list(api.search_submissions(after=date,
 
 # iterate through posts and get stock mentions
 for i in submissions:
-    print(i)
+    # print(i)
     words = i.title.split()
     for word in words:
         if(valid_stock(word)):
@@ -63,7 +60,13 @@ for i in submissions:
                 stock_dictionary[word.upper()] += 1
             else:
                 stock_dictionary[word.upper()] = 1
-
+        else:
+            if(word in full_name_dictionary):
+                temp = full_name_dictionary[word]
+                if(temp.upper() in stock_dictionary):
+                    stock_dictionary[temp.upper()] += 1
+                else:
+                    stock_dictionary[temp.upper()] = 1
 
 # sort and get only top amount declared
 sorted_stocks = sorted(stock_dictionary.items(),
