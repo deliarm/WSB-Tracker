@@ -9,8 +9,8 @@ warnings.filterwarnings("ignore")
 
 
 year = 2021
-month = 8
-day = 8
+month = 9
+day = 9
 iterations = 10000  # 10k seems to be a good benchmark
 top = 50
 stock_dictionary = {}
@@ -39,44 +39,47 @@ def filler_word_filter(str):
 
 
 ### BEGIN PROGRAM ###
-print("\nFetching data from "+str(year)+"-"+str(month)+"-"+str(day) + "...\n")
+def get_common_stocks():
+    print("\nFetching data from "+str(year) +
+          "-"+str(month)+"-"+str(day) + "...\n")
 
-api = PushshiftAPI()
-date = int(datetime.datetime(year, month, day).timestamp())
+    api = PushshiftAPI()
+    date = int(datetime.datetime(year, month, day).timestamp())
 
-# API call for posts
-submissions = list(api.search_submissions(after=date,
-                                          subreddit='wallstreetbets',
-                                          filter=['title'],
-                                          limit=iterations))
+    # API call for posts
+    submissions = list(api.search_submissions(after=date,
+                                              subreddit='wallstreetbets',
+                                              filter=['title'],
+                                              limit=iterations))
 
-# iterate through posts and get stock mentions
-for i in submissions:
-    # print(i)
-    words = i.title.split()
-    for word in words:
-        if(valid_stock(word)):
-            if (word.upper() in stock_dictionary):
-                stock_dictionary[word.upper()] += 1
-            else:
-                stock_dictionary[word.upper()] = 1
-        else:
-            if(word in full_name_dictionary):
-                temp = full_name_dictionary[word]
-                if(temp.upper() in stock_dictionary):
-                    stock_dictionary[temp.upper()] += 1
+    # iterate through posts and get stock mentions
+    for i in submissions:
+        # print(i)
+        words = i.title.split()
+        for word in words:
+            if(valid_stock(word)):
+                if (word.upper() in stock_dictionary):
+                    stock_dictionary[word.upper()] += 1
                 else:
-                    stock_dictionary[temp.upper()] = 1
+                    stock_dictionary[word.upper()] = 1
+            else:
+                if(word in full_name_dictionary):
+                    temp = full_name_dictionary[word]
+                    if(temp.upper() in stock_dictionary):
+                        stock_dictionary[temp.upper()] += 1
+                    else:
+                        stock_dictionary[temp.upper()] = 1
 
-# sort and get only top amount declared
-sorted_stocks = sorted(stock_dictionary.items(),
-                       key=lambda x: x[1], reverse=True)[:top]
+    # sort and get only top amount declared
+    sorted_stocks = sorted(stock_dictionary.items(),
+                           key=lambda x: x[1], reverse=True)[:top]
 
-print("\n Sorted Data: ")
-for stock, count in sorted_stocks:
-    print(stock, " \t: ", count)
-print("\n")
+    print("\n Sorted Data: ")
+    for stock, count in sorted_stocks:
+        print(stock, " \t: ", count)
+    print("\n")
 
+    return sorted_stocks
 
 # display stock data:
 # print("Stock \t Volume \t Mentions")
