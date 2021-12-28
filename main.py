@@ -1,9 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import WallStreetBets
+import WallStreetBets as wsb
 
 
-WallStreetBets.get_common_stocks()
+top_mentions = wsb.get_common_stocks()
+
+print(f"{'Ticker' :<12} {'Mentions' :<12} {'Price' :<12} {'Monthly Change(%)' :<12}")
+for stock, count in top_mentions:
+    current_price = round(wsb.get_stock_price(stock),2)
+    month_change = round(wsb.get_month_change(stock),2)
+    print("{:<12} {:<12} {:<12} {:<12}".format(stock,count,current_price,month_change))
 
 # plt.rcdefaults()
 # fig, ax = plt.subplots()

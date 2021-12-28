@@ -1,6 +1,7 @@
 import datetime
 import warnings
 import matplotlib as plt
+from matplotlib.pyplot import close
 import yfinance as yf
 from psaw import PushshiftAPI
 from tickers import ticker_set
@@ -10,9 +11,12 @@ warnings.filterwarnings("ignore")
 
 year = 2021
 month = 9
-day = 9
+day = 8
+current_date = "{}-{}-{}".format(year, month, day)
+prev_date = "{}-{}-{}".format(year, month-1, day)
+
 iterations = 10000  # 10k seems to be a good benchmark
-top = 50
+top = 20
 stock_dictionary = {}
 
 
@@ -73,21 +77,20 @@ def get_common_stocks():
     # sort and get only top amount declared
     sorted_stocks = sorted(stock_dictionary.items(),
                            key=lambda x: x[1], reverse=True)[:top]
-
-    print("\n Sorted Data: ")
-    for stock, count in sorted_stocks:
-        print(stock, " \t: ", count)
-    print("\n")
-
     return sorted_stocks
 
-# display stock data:
-# print("Stock \t Volume \t Mentions")
-# for stock, count in sorted_stocks:
-#     try:
-#         temp = yf.Ticker(stock[1:])
-#         day_volume = (temp.info["volume"])
-#         print(str(stock[1:]) + "\t" + str(day_volume)+" \t   "+str(count))
-#     except:
-#         print("Stock info not available for "+str(stock[1:]))
-# print("\n")
+
+def get_month_change(ticker):
+    ticker_yahoo = yf.Ticker(ticker)
+    data = ticker_yahoo.history(
+        start=prev_date, end=current_date)[['Close']]
+    month_change = (
+        (data.iloc[-1]['Close'] - data.iloc[0]['Close']) / data.iloc[0]['Close']) * 100
+    return month_change
+
+
+def get_stock_price(ticker):
+    ticker_yahoo = yf.Ticker(ticker)
+    data = ticker_yahoo.history(period='1h')[['Close']]
+    close_price = data.iloc[0]['Close']
+    return close_price
