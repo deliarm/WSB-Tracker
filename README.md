@@ -1,15 +1,11 @@
 # WSB-Tracker
 
 ### Dependencies 
-python 3.7 or higher
-
-pip install numpy
-
-pip install pandas
-
-pip install yfinance
-
-pip install matplotlib
+python 3.7 or higher  
+pip install numpy  
+pip install pandas  
+pip install yfinance  
+pip install matplotlib  
 
 ### Usage
 
