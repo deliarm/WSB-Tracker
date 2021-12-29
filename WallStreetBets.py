@@ -8,20 +8,7 @@ from tickers import ticker_set
 from full_company_name import full_name_dictionary
 warnings.filterwarnings("ignore")
 
-
-year = 2021
-month = 1
-day = 8
-current_date = "{}-{}-{}".format(year, month, day)
-prev_date = "{}-{}-{}".format(year, month-1, day)
-
-if(month==1):
-    prev_date = "{}-{}-{}".format(year, 12, day)
-
-iterations = 8000  # 10k seems to be a good benchmark
-top = 20
 stock_dictionary = {}
-
 
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
@@ -46,7 +33,7 @@ def filler_word_filter(str):
 
 
 ### BEGIN PROGRAM ###
-def get_common_stocks():
+def get_common_stocks(year,month,day,iterations,top):
     print("\nFetching data from "+str(year) +
           "-"+str(month)+"-"+str(day) + "...\n")
 
@@ -83,14 +70,14 @@ def get_common_stocks():
     return sorted_stocks
 
 
-def get_month_change(ticker):
+def get_month_change(ticker,prev_date,current_date):
     ticker_yahoo = yf.Ticker(ticker)
     data = ticker_yahoo.history(start=prev_date, end=current_date)[['Close']]
     month_change = ((data.iloc[-1]['Close'] - data.iloc[0]['Close']) / data.iloc[0]['Close']) * 100
     return month_change
 
 
-def get_stock_price(ticker):
+def get_stock_price(ticker,prev_date,current_date):
     ticker_yahoo = yf.Ticker(ticker)
     data = ticker_yahoo.history(start=prev_date, end=current_date)[['Close']]
     close_price = data.iloc[-1]['Close']
