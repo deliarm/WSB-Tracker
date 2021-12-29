@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from yfinance import ticker
 import WallStreetBets as wsb
 import sys
+
 
 if(len(sys.argv) != 4):
     print("Correct Usage: [MM/DD/YYYY] [# Of Iterations] [Top X stocks]")
@@ -28,19 +30,35 @@ for stock, count in top_mentions:
     month_change = round(wsb.get_month_change(stock,prev_date,current_date),2)
     print("{:<12} {:<12} {:<12} {:<12}".format(stock,count,current_price,month_change))
 
-# plt.rcdefaults()
-# fig, ax = plt.subplots()
 
-# # Example data
-# people = ('Tom', 'Dick', 'Harry', 'Slim', 'Jim')
-# y_pos = np.arange(len(people))
-# performance = 3 + 10 * np.random.rand(len(people))
-# error = np.random.rand(len(people))
+tickers = [x[0] for x in top_mentions]
+mentions = [x[1] for x in top_mentions]
+title = "WallStreetBets Activity For {}".format(current_date)
 
-# ax.barh(y_pos, performance, xerr=error, align='center')
-# ax.set_ylabel("Ticker")
-# ax.invert_yaxis()  # labels read top-to-bottom
-# ax.set_xlabel('Performance')
-# ax.set_title('How fast do you want to go today?')
 
-# plt.show()
+### GUI
+plt.rcdefaults()
+fig, ax = plt.subplots(figsize=(12,8))
+fig.canvas.set_window_title('WSB Visualized Data')
+my_cmap = plt.get_cmap("Set3")
+
+# Example data
+stocks = top_mentions
+y_pos = np.arange(len(stocks))
+performance = 3 + 10 * np.random.rand(len(stocks))
+error = np.random.rand(len(stocks))
+
+ax.barh(tickers, mentions, align='center',color=my_cmap.colors)
+ax.set_ylabel("Ticker")
+ax.invert_yaxis()  # labels read top-to-bottom
+ax.set_xlabel('Times Mentioned')
+ax.set_title(title)
+
+rects = ax.patches
+labels = [f"{i}" for i in mentions]
+for rect, label in zip(rects, labels):
+    height = rect.get_height()
+    ax.text(rect.get_width() + 1,rect.get_y() + rect.get_height()/2, label, ha="left", va="center")
+
+
+plt.show()
