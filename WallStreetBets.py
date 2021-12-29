@@ -39,9 +39,8 @@ def get_common_stocks(year,month,day,iterations,top):
 
     api = PushshiftAPI()
     date = int(datetime.datetime(year, month, day).timestamp())
-
     # API call for posts
-    submissions = list(api.search_submissions(after=date,
+    submissions = list(api.search_submissions(before=date,
                                               subreddit='wallstreetbets',
                                               filter=['title'],
                                               limit=iterations))
