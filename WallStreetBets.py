@@ -1,7 +1,7 @@
 import datetime
 import warnings
 import matplotlib as plt
-from matplotlib.pyplot import close
+from matplotlib.pyplot import close, contour
 import yfinance as yf
 from psaw import PushshiftAPI
 from tickers import ticker_set
@@ -9,10 +9,10 @@ from full_company_name import full_name_dictionary
 warnings.filterwarnings("ignore")
 
 stock_dictionary = {}
+chars = set('0123456789(),./;"-_&* ')
 
 def has_numbers(inputString):
     return any(char.isdigit() for char in inputString)
-
 
 def valid_stock(inputString):
     if inputString.upper() in ticker_set:
@@ -72,13 +72,19 @@ def get_common_stocks(year,month,day,iterations,top):
 
 def get_month_change(ticker,prev_date,current_date):
     ticker_yahoo = yf.Ticker(ticker)
-    data = ticker_yahoo.history(start=prev_date, end=current_date)[['Close']]
-    month_change = ((data.iloc[-1]['Close'] - data.iloc[0]['Close']) / data.iloc[0]['Close']) * 100
+    try:
+        data = ticker_yahoo.history(start=prev_date, end=current_date)[['Close']]
+        month_change = ((data.iloc[-1]['Close'] - data.iloc[0]['Close']) / data.iloc[0]['Close']) * 100
+    except:
+        month_change = 0
     return month_change
 
 
 def get_stock_price(ticker,prev_date,current_date):
     ticker_yahoo = yf.Ticker(ticker)
-    data = ticker_yahoo.history(start=prev_date, end=current_date)[['Close']]
-    close_price = data.iloc[-1]['Close']
+    try:
+        data = ticker_yahoo.history(start=prev_date, end=current_date)[['Close']]
+        close_price = data.iloc[-1]['Close']
+    except:
+        close_price = 0
     return close_price

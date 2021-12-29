@@ -42,7 +42,6 @@ fig, ax = plt.subplots(figsize=(12,8))
 fig.canvas.set_window_title('WSB Visualized Data')
 my_cmap = plt.get_cmap("Set3")
 
-# Example data
 stocks = top_mentions
 y_pos = np.arange(len(stocks))
 performance = 3 + 10 * np.random.rand(len(stocks))
@@ -50,7 +49,7 @@ error = np.random.rand(len(stocks))
 
 ax.barh(tickers, mentions, align='center',color=my_cmap.colors)
 ax.set_ylabel("Ticker")
-ax.invert_yaxis()  # labels read top-to-bottom
+ax.invert_yaxis()
 ax.set_xlabel('Times Mentioned')
 ax.set_title(title)
 
