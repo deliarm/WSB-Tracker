@@ -9,7 +9,10 @@ pip install matplotlib
 
 ### Usage
 
-from the command line enter ```bash python main.py MM/DD/YYYY [# of iterations] [top X stocks]```
+from the command line enter 
+```bash 
+python main.py MM/DD/YYYY [# of iterations] [top X stocks]
+```
 
 The below example will run for October 10th, 2020. It will go througn 10,000 posts and obtain the top 20 stocks
 ```bash
