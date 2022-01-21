@@ -15,9 +15,12 @@ month = int(input[0])
 day = int(input[1])
 year = int(input[2])
 current_date = "{}-{}-{}".format(year, month, day)
-prev_date = "{}-{}-{}".format(year, month-1, day)
+
 if(month==1):
     prev_date = "{}-{}-{}".format(year-1, 12, day)
+    print
+else:
+    prev_date = "{}-{}-{}".format(year, month-1, day)
 
 iterations = int(sys.argv[2])  # 10k seems to be a good benchmark
 top = int(sys.argv[3])
