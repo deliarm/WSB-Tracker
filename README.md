@@ -25,5 +25,3 @@ Here is the output for the above example:
 
 ![image](https://user-images.githubusercontent.com/52977770/147697833-bff653e2-55a7-44da-af48-c8e4d19b4da0.png)
 
-
-Due to deprecation of PSAW, the first version no longer works, version 2 has been uploaded, rate limit has decreased significantly.
